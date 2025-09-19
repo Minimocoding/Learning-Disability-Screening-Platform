@@ -1,0 +1,640 @@
+/* Results Page Styles */
+
+.results-section {
+    padding: 120px 20px 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.results-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.results-header h1 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.results-header p {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Results Container */
+.results-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Loading State */
+.loading-state {
+    text-align: center;
+    padding: 80px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #ff6b6b;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 30px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-state h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.loading-state p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Error State */
+.error-state {
+    text-align: center;
+    padding: 80px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.error-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.error-state h3 {
+    color: #e74c3c;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.error-state p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.retry-button {
+    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Comic Neue', cursive;
+}
+
+.retry-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* Results Content */
+.results-content {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Main Result Card */
+.main-result-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.result-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+.main-result-card h2 {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.result-summary {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.confidence-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.confidence-bar {
+    width: 200px;
+    height: 10px;
+    background: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.confidence-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    border-radius: 5px;
+    transition: width 1s ease-out;
+}
+
+/* Detailed Results Grid */
+.detailed-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.result-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.result-card h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.result-card h3 i {
+    color: #ff6b6b;
+}
+
+/* LD Status Card */
+.status-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.status-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.status-indicator.positive {
+    background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+    border-left: 5px solid #e17055;
+}
+
+.status-indicator.negative {
+    background: linear-gradient(135deg, #d1f2eb, #a7f3d0);
+    border-left: 5px solid #00b894;
+}
+
+.status-indicator.positive .status-text {
+    color: #d63031;
+}
+
+.status-indicator.negative .status-text {
+    color: #00b894;
+}
+
+/* Type Card */
+.type-indicator {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9ff, #e8f4ff);
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.type-icon {
+    font-size: 2rem;
+}
+
+.type-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Scores Card */
+.scores-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.score-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.score-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+}
+
+.score-info {
+    flex: 1;
+}
+
+.score-label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.score-bar {
+    width: 100%;
+    height: 8px;
+    background: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.score-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease-out;
+}
+
+.dyslexia-fill {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+}
+
+.dyscalculia-fill {
+    background: linear-gradient(45deg, #4ecdc4, #00b894);
+}
+
+.dysgraphia-fill {
+    background: linear-gradient(45deg, #ffa500, #e17055);
+}
+
+.score-value {
+    font-weight: 600;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Mental Health Card */
+.mental-health-status {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f0fff4, #e8f5e8);
+    border-radius: 10px;
+    border-left: 5px solid #27ae60;
+}
+
+.mh-icon {
+    font-size: 2rem;
+}
+
+.mh-title {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.mh-description {
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.mental-health-status.flagged {
+    background: linear-gradient(135deg, #fff5f5, #fed7d7);
+    border-left-color: #e53e3e;
+}
+
+.mental-health-status.flagged .mh-icon {
+    color: #e53e3e;
+}
+
+/* Recommendations Section */
+.recommendations-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+}
+
+.recommendations-section h2 {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.recommendations-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.recommendation-card {
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.recommendation-card:hover {
+    transform: translateX(5px);
+}
+
+.recommendation-card.professional {
+    background: linear-gradient(135deg, #e8f4ff, #dbeafe);
+    border-left: 5px solid #3b82f6;
+}
+
+.recommendation-card.educational {
+    background: linear-gradient(135deg, #f0fff4, #dcfce7);
+    border-left: 5px solid #22c55e;
+}
+
+.recommendation-card.support {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-left: 5px solid #f59e0b;
+}
+
+.recommendation-card.general {
+    background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+    border-left: 5px solid #8b5cf6;
+}
+
+.recommendation-card.disclaimer {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    border-left: 5px solid #ef4444;
+}
+
+.rec-icon {
+    font-size: 1.5rem;
+    margin-top: 5px;
+}
+
+.rec-content h4 {
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.rec-content p {
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Important Notice */
+.important-notice {
+    background: linear-gradient(135deg, #fff5f5, #fed7d7);
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 5px solid #e53e3e;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.notice-icon {
+    font-size: 2rem;
+    color: #e53e3e;
+    margin-top: 5px;
+}
+
+.notice-content h3 {
+    color: #e53e3e;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.notice-content p {
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.action-buttons button {
+    padding: 15px 25px;
+    border-radius: 25px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Comic Neue', cursive;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #ff6b6b, #ffa500);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #666;
+    border: 2px solid #eee;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+}
+
+.btn-accent {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    color: white;
+}
+
+.btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
+}
+
+/* Share Modal */
+.share-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.share-options input {
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Comic Neue', cursive;
+}
+
+.share-options button {
+    padding: 12px 20px;
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Comic Neue', cursive;
+}
+
+.share-options button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .results-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .detailed-results {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-result-card {
+        padding: 30px 20px;
+    }
+    
+    .confidence-indicator {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .confidence-bar {
+        width: 150px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .action-buttons button {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .important-notice {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .recommendation-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .header, .footer, .action-buttons {
+        display: none;
+    }
+    
+    .results-section {
+        background: white;
+        padding: 20px;
+    }
+    
+    .results-header h1 {
+        color: #333;
+        text-shadow: none;
+    }
+    
+    .results-header p {
+        color: #666;
+        text-shadow: none;
+    }
+    
+    .result-card {
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        page-break-inside: avoid;
+    }
+}

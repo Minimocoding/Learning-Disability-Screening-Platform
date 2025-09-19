@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Results - Learning Helper</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/results.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <img src="images/logo.png" alt="Learning Helper Logo" class="logo">
+                <h1>Learning Helper</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About LD</a></li>
+                <li><a href="index.html#test" class="nav-link">Test</a></li>
+                <li><a href="#" class="nav-link" onclick="showProfile()">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Results Section -->
+        <section class="results-section">
+            <div class="container">
+                <div class="results-header">
+                    <h1>🌟 Your Screening Results 🌟</h1>
+                    <p>Here's what we discovered about your child's learning journey</p>
+                </div>
+
+                <!-- Results Container -->
+                <div class="results-container" id="resultsContainer">
+                    <!-- Loading State -->
+                    <div class="loading-state" id="loadingState">
+                        <div class="loading-spinner"></div>
+                        <h3>Analyzing your responses... 🧠</h3>
+                        <p>Please wait while we process your results</p>
+                    </div>
+
+                    <!-- Error State -->
+                    <div class="error-state" id="errorState" style="display: none;">
+                        <div class="error-icon">⚠️</div>
+                        <h3>Oops! Something went wrong</h3>
+                        <p>We couldn't process your results right now. Please try again.</p>
+                        <button class="retry-button" onclick="loadResults()">Try Again</button>
+                    </div>
+
+                    <!-- Results Content -->
+                    <div class="results-content" id="resultsContent" style="display: none;">
+                        <!-- Main Result Card -->
+                        <div class="main-result-card">
+                            <div class="result-icon" id="resultIcon">🌈</div>
+                            <h2 id="mainResultTitle">Your Child's Learning Profile</h2>
+                            <p class="result-summary" id="resultSummary"></p>
+                            <div class="confidence-indicator">
+                                <span>Confidence Level:</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" id="confidenceFill"></div>
+                                </div>
+                                <span id="confidenceText">85%</span>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Results Grid -->
+                        <div class="detailed-results">
+                            <!-- Learning Difference Status -->
+                            <div class="result-card ld-status-card">
+                                <h3><i class="fas fa-brain"></i> Learning Difference Assessment</h3>
+                                <div class="status-indicator" id="ldStatus">
+                                    <span class="status-text">Analyzing...</span>
+                                </div>
+                                <p class="card-description" id="ldDescription"></p>
+                            </div>
+
+                            <!-- Primary Type -->
+                            <div class="result-card type-card">
+                                <h3><i class="fas fa-chart-pie"></i> Primary Learning Style</h3>
+                                <div class="type-indicator" id="typeIndicator">
+                                    <div class="type-icon">🎯</div>
+                                    <span class="type-name" id="typeName">Processing...</span>
+                                </div>
+                                <p class="card-description" id="typeDescription"></p>
+                            </div>
+
+                            <!-- Category Scores -->
+                            <div class="result-card scores-card">
+                                <h3><i class="fas fa-chart-bar"></i> Category Breakdown</h3>
+                                <div class="scores-grid">
+                                    <div class="score-item">
+                                        <div class="score-icon">📖</div>
+                                        <div class="score-info">
+                                            <span class="score-label">Reading & Language</span>
+                                            <div class="score-bar">
+                                                <div class="score-fill dyslexia-fill" id="dyslexiaScore"></div>
+                                            </div>
+                                            <span class="score-value" id="dyslexiaValue">0</span>
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <div class="score-icon">🔢</div>
+                                        <div class="score-info">
+                                            <span class="score-label">Math & Numbers</span>
+                                            <div class="score-bar">
+                                                <div class="score-fill dyscalculia-fill" id="dyscalculiaScore"></div>
+                                            </div>
+                                            <span class="score-value" id="dyscalculiaValue">0</span>
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <div class="score-icon">✏️</div>
+                                        <div class="score-info">
+                                            <span class="score-label">Writing & Expression</span>
+                                            <div class="score-bar">
+                                                <div class="score-fill dysgraphia-fill" id="dysgraphiaScore"></div>
+                                            </div>
+                                            <span class="score-value" id="dysgraphiaValue">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mental Health Screening -->
+                            <div class="result-card mental-health-card">
+                                <h3><i class="fas fa-heart"></i> Emotional Well-being</h3>
+                                <div class="mental-health-status" id="mentalHealthStatus">
+                                    <div class="mh-icon">💚</div>
+                                    <div class="mh-text">
+                                        <span class="mh-title" id="mhTitle">Checking...</span>
+                                        <p class="mh-description" id="mhDescription"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recommendations Section -->
+                        <div class="recommendations-section">
+                            <h2><i class="fas fa-lightbulb"></i> What's Next? Helpful Recommendations</h2>
+                            <div class="recommendations-grid" id="recommendationsGrid">
+                                <!-- Recommendations will be populated here -->
+                            </div>
+                        </div>
+
+                        <!-- Important Notice -->
+                        <div class="important-notice">
+                            <div class="notice-icon">⚠️</div>
+                            <div class="notice-content">
+                                <h3>Important: This is a Screening Tool</h3>
+                                <p>These results are meant to provide insights and guidance, not a definitive diagnosis. For a comprehensive evaluation and professional diagnosis, please consult with qualified educational psychologists, pediatricians, or learning specialists.</p>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="btn-secondary" onclick="window.print()">
+                                <i class="fas fa-print"></i>
+                                Print Results
+                            </button>
+                            <button class="btn-primary" onclick="saveResults()">
+                                <i class="fas fa-save"></i>
+                                Save to Profile
+                            </button>
+                            <button class="btn-accent" onclick="shareResults()">
+                                <i class="fas fa-share"></i>
+                                Share with Professional
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="images/logo.png" alt="Learning Helper Logo" class="footer-logo">
+                <h3>Learning Helper</h3>
+            </div>
+            <div class="footer-info">
+                <p>Made with ❤️ for helping children learn better</p>
+                <p>&copy; 2024 Learning Helper Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Share Results with Professional 👩‍⚕️</h2>
+            <p>Generate a secure link to share these results with your child's healthcare provider or educator:</p>
+            <div class="share-options">
+                <input type="text" id="shareLink" readonly placeholder="Generating link...">
+                <button onclick="copyShareLink()">Copy Link</button>
+                <button onclick="emailResults()">Email Results</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/results.js"></script>
+</body>
+</html>
