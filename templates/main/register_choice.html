@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Choose Registration Type - Learning Helper{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary">Choose Your Role</h1>
+                <p class="lead text-muted">
+                    Select the option that best describes you to create your account and access personalized features.
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Parent Registration -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card card-custom h-100 text-center">
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <div class="role-icon bg-danger bg-opacity-10 text-danger rounded-circle p-4 d-inline-flex align-items-center justify-content-center">
+                                    <i class="fas fa-heart fa-2x"></i>
+                                </div>
+                            </div>
+                            <h3 class="card-title">Parent/Guardian</h3>
+                            <p class="card-text mb-4">
+                                Register as a parent, guardian, sibling, or other family member concerned about a child's learning development.
+                            </p>
+                            <ul class="list-unstyled text-start mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Monitor child's progress</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Access family resources</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Get expert recommendations</li>
+                            </ul>
+                            <a href="{% url 'register_parent' %}" class="btn btn-danger btn-lg w-100">
+                                Register as Parent
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Teacher Registration -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card card-custom h-100 text-center">
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <div class="role-icon bg-success bg-opacity-10 text-success rounded-circle p-4 d-inline-flex align-items-center justify-content-center">
+                                    <i class="fas fa-chalkboard-teacher fa-2x"></i>
+                                </div>
+                            </div>
+                            <h3 class="card-title">Teacher/Educator</h3>
+                            <p class="card-text mb-4">
+                                Register as a teacher, educator, or school professional to assess and support students with learning differences.
+                            </p>
+                            <ul class="list-unstyled text-start mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Assess multiple students</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Classroom strategies</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Educational resources</li>
+                            </ul>
+                            <a href="{% url 'register_teacher' %}" class="btn btn-success btn-lg w-100">
+                                Register as Teacher
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Psychologist Registration -->
+                <div class="col-lg-4 col-md-6 mx-auto">
+                    <div class="card card-custom h-100 text-center">
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <div class="role-icon bg-info bg-opacity-10 text-info rounded-circle p-4 d-inline-flex align-items-center justify-content-center">
+                                    <i class="fas fa-brain fa-2x"></i>
+                                </div>
+                            </div>
+                            <h3 class="card-title">Psychologist</h3>
+                            <p class="card-text mb-4">
+                                Register as a licensed psychologist or mental health professional to use our screening tools in your practice.
+                            </p>
+                            <ul class="list-unstyled text-start mb-4">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Professional assessment tool</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Clinical insights</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Evidence-based results</li>
+                            </ul>
+                            <a href="{% url 'register_psychologist' %}" class="btn btn-info btn-lg w-100">
+                                Register as Psychologist
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <p class="text-muted">Already have an account?</p>
+                <a href="{% url 'login' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

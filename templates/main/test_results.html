@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Assessment Results - Learning Helper{% endblock %}
+
+{% block extra_head %}
+<style>
+.result-step {
+    display: none;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-in-out;
+}
+
+.result-step.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.result-card {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1rem;
+}
+
+.ld-positive { background: linear-gradient(135deg, #ff6b6b, #ee5a52); color: white; }
+.ld-negative { background: linear-gradient(135deg, #51cf66, #40c057); color: white; }
+.ld-warning { background: linear-gradient(135deg, #ffd43b, #fab005); color: white; }
+
+.condition-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin: 5px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.badge-positive { background: #ffe3e3; color: #c92a2a; border: 2px solid #ffa8a8; }
+.badge-negative { background: #e6fcf5; color: #087f5b; border: 2px solid #96f2d7; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary">Assessment Results</h1>
+                <p class="lead">for {{ child.name }}, Age {{ child.age }}</p>
+            </div>
+            
+            <!-- Loading Step -->
+            <div id="loading-step" class="result-step show">
+                <div class="result-card">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Analyzing responses...</div>
+                    <p class="text-muted mt-3">Please wait while we process the assessment data</p>
+                </div>
+            </div>
+            
+            <!-- Step 1: Overall LD Assessment -->
+            <div id="step-1" class="result-step">
+                <div class="result-card">
+                    <div class="result-icon mb-4">
+                        <i class="fas fa-search fa-4x" id="overall-icon"></i>
+                    </div>
+                    <h3 id="overall-title" class="mb-3"></h3>
+                    <div class="score-circle" id="total-score-circle">
+                        <span>{{ test_result.total_score }}/100</span>
+                    </div>
+                    <p class="lead" id="overall-message"></p>
+                    <div class="mt-4">
+                        <p class="text-muted">Total Assessment Score: <strong>{{ test_result.total_score }} out of 100</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2: Specific Learning Disabilities (shown only if has_ld is true) -->
+            <div id="step-2" class="result-step">
+                <div class="result-card">
+                    <h3 class="mb-4"><i class="fas fa-list-ul me-2 text-primary"></i>Specific Areas of Concern</h3>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="score-circle {% if test_result.has_dyslexia %}ld-positive{% else %}ld-negative{% endif %}">
+                                    {{ test_result.dyslexia_score }}/22
+                                </div>
+                                <h5>Dyslexia</h5>
+                                <div class="condition-badge {% if test_result.has_dyslexia %}badge-positive{% else %}badge-negative{% endif %}">
+                                    {% if test_result.has_dyslexia %}Indicators Present{% else %}No Concerns{% endif %}
+                                </div>
+                                <p class="small text-muted mt-2">Reading & Language Processing</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="score-circle {% if test_result.has_dysgraphia %}ld-positive{% else %}ld-negative{% endif %}">
+                                    {{ test_result.dysgraphia_score }}/22
+                                </div>
+                                <h5>Dysgraphia</h5>
+                                <div class="condition-badge {% if test_result.has_dysgraphia %}badge-positive{% else %}badge-negative{% endif %}">
+                                    {% if test_result.has_dysgraphia %}Indicators Present{% else %}No Concerns{% endif %}
+                                </div>
+                                <p class="small text-muted mt-2">Writing & Fine Motor Skills</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="score-circle {% if test_result.has_dyscalculia %}ld-positive{% else %}ld-negative{% endif %}">
+                                    {{ test_result.dyscalculia_score }}/26
+                                </div>
+                                <h5>Dyscalculia</h5>
+                                <div class="condition-badge {% if test_result.has_dyscalculia %}badge-positive{% else %}badge-negative{% endif %}">
+                                    {% if test_result.has_dyscalculia %}Indicators Present{% else %}No Concerns{% endif %}
+                                </div>
+                                <p class="small text-muted mt-2">Mathematical Learning</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3: Psychological Impact -->
+            <div id="step-3" class="result-step">
+                <div class="result-card">
+                    <div class="result-icon mb-4">
+                        <i class="fas fa-heart fa-4x {% if test_result.has_psychological_impact %}text-warning{% else %}text-success{% endif %}"></i>
+                    </div>
+                    <h3 id="psychological-title" class="mb-3"></h3>
+                    <div class="score-circle {% if test_result.has_psychological_impact %}ld-warning{% else %}ld-negative{% endif %}">
+                        {{ test_result.psychological_score }}/30
+                    </div>
+                    <p class="lead" id="psychological-message"></p>
+                    
+                    {% if test_result.has_psychological_impact %}
+                        <div class="alert alert-warning mt-4">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Consider providing additional emotional support and consulting with a school counselor or psychologist.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Final Summary and Recommendations -->
+            <div id="step-4" class="result-step">
+                <div class="result-card">
+                    <h3 class="mb-4"><i class="fas fa-lightbulb me-2 text-warning"></i>Recommendations</h3>
+                    
+                    {% if test_result.has_ld %}
+                        <div class="alert alert-info">
+                            <h5><i class="fas fa-info-circle me-2"></i>Next Steps</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fas fa-check me-2 text-success"></i>Consult with educational specialists for formal evaluation</li>
+                                <li><i class="fas fa-check me-2 text-success"></i>Discuss results with teachers and school support staff</li>
+                                <li><i class="fas fa-check me-2 text-success"></i>Consider individualized education planning (IEP) if appropriate</li>
+                                <li><i class="fas fa-check me-2 text-success"></i>Explore specialized teaching methods and accommodations</li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success">
+                            <h5><i class="fas fa-thumbs-up me-2"></i>Positive Outcome</h5>
+                            <p class="mb-0">The assessment suggests no significant learning disability indicators. Continue supporting {{ child.name }}'s educational development with regular monitoring.</p>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="mt-4">
+                        <p class="text-muted"><strong>Important:</strong> This screening tool provides preliminary insights and should not replace professional diagnosis. Please consult qualified professionals for comprehensive evaluation.</p>
+                    </div>
+                    
+                    <div class="mt-4 d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="{% url 'about_ld' %}" class="btn btn-primary">
+                            <i class="fas fa-book me-2"></i>Learn More
+                        </a>
+                        <a href="{% url 'test_guidelines' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-redo me-2"></i>Take Another Assessment
+                        </a>
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-home me-2"></i>Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const hasLD = {{ test_result.has_ld|yesno:"true,false" }};
+    const hasPsychological = {{ test_result.has_psychological_impact|yesno:"true,false" }};
+    
+    // Step 1: Show overall result after 2 seconds
+    setTimeout(() => {
+        document.getElementById('loading-step').classList.remove('show');
+        document.getElementById('step-1').classList.add('show');
+        
+        // Set content based on results
+        const overallIcon = document.getElementById('overall-icon');
+        const overallTitle = document.getElementById('overall-title');
+        const overallMessage = document.getElementById('overall-message');
+        const totalScoreCircle = document.getElementById('total-score-circle');
+        
+        if (hasLD) {
+            overallIcon.className = 'fas fa-exclamation-triangle fa-4x text-warning';
+            overallTitle.textContent = 'Learning Differences Detected';
+            overallMessage.textContent = 'The assessment indicates potential learning differences that may benefit from further evaluation.';
+            totalScoreCircle.className = 'score-circle ld-positive';
+        } else {
+            overallIcon.className = 'fas fa-check-circle fa-4x text-success';
+            overallTitle.textContent = 'No Significant Learning Disabilities Detected';
+            overallMessage.textContent = 'The assessment suggests no major learning disability indicators at this time.';
+            totalScoreCircle.className = 'score-circle ld-negative';
+        }
+        
+        // Step 2: Show specific areas after another 2 seconds (only if has LD)
+        if (hasLD) {
+            setTimeout(() => {
+                document.getElementById('step-2').classList.add('show');
+                
+                // Step 3: Show psychological impact after 2 more seconds
+                setTimeout(() => {
+                    document.getElementById('step-3').classList.add('show');
+                    
+                    // Set psychological impact content
+                    const psychTitle = document.getElementById('psychological-title');
+                    const psychMessage = document.getElementById('psychological-message');
+                    
+                    if (hasPsychological) {
+                        psychTitle.textContent = 'Emotional Impact Detected';
+                        psychMessage.textContent = 'The assessment indicates potential psychological effects that may need attention.';
+                    } else {
+                        psychTitle.textContent = 'No Significant Emotional Impact';
+                        psychMessage.textContent = 'The assessment suggests no major psychological concerns at this time.';
+                    }
+                    
+                    // Step 4: Show recommendations after final 2 seconds
+                    setTimeout(() => {
+                        document.getElementById('step-4').classList.add('show');
+                    }, 2000);
+                }, 2000);
+            }, 2000);
+        } else {
+            // If no LD, skip to psychological impact
+            setTimeout(() => {
+                document.getElementById('step-3').classList.add('show');
+                
+                const psychTitle = document.getElementById('psychological-title');
+                const psychMessage = document.getElementById('psychological-message');
+                
+                if (hasPsychological) {
+                    psychTitle.textContent = 'Emotional Considerations';
+                    psychMessage.textContent = 'While no learning disabilities were detected, there may be emotional factors to consider.';
+                } else {
+                    psychTitle.textContent = 'Positive Emotional Well-being';
+                    psychMessage.textContent = 'The assessment indicates good emotional well-being regarding learning.';
+                }
+                
+                // Show final recommendations
+                setTimeout(() => {
+                    document.getElementById('step-4').classList.add('show');
+                }, 2000);
+            }, 2000);
+        }
+    }, 2000);
+});
+</script>
+{% endblock %}

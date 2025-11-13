@@ -1,0 +1,333 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Assessment Questions - Learning Helper{% endblock %}
+
+{% block extra_head %}
+<style>
+.question-progress {
+    position: sticky;
+    top: 80px;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.section-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 30px 0 20px 0;
+}
+
+.question-card {
+    transition: all 0.3s ease;
+    border-left: 5px solid transparent;
+}
+
+.question-card.answered {
+    border-left-color: var(--success-color);
+    background: rgba(39, 174, 96, 0.05);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="question-progress">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="progress-custom">
+                    <div class="progress-bar-custom" style="width: 0%" id="progressBar"></div>
+                </div>
+                <small class="text-muted mt-2 d-block">
+                    <span id="currentQuestion">0</span> of {{ total_questions }} questions completed
+                </small>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <span class="badge bg-primary fs-6" id="sectionBadge">Getting Started</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4 mb-5">
+    <form method="post" id="assessmentForm">
+        {% csrf_token %}
+        
+        <!-- Dyslexia Section -->
+        <div class="section-header" id="dyslexia-section">
+            <h3><i class="fas fa-book-reader me-2"></i>Reading and Language (Questions 1-11)</h3>
+            <p class="mb-0">These questions assess potential dyslexia indicators</p>
+        </div>
+        
+        {% for question in questions %}
+            {% if question.question_number <= 11 %}
+                <div class="question-container question-card" data-question="{{ question.question_number }}" data-section="dyslexia">
+                    <div class="question-number">Question {{ question.question_number }}</div>
+                    <h5 class="mb-3">{{ question.question_text }}</h5>
+                    
+                    <div class="answer-options">
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="2" id="q{{ question.question_number }}_yes">
+                            <label for="q{{ question.question_number }}_yes">
+                                <i class="fas fa-check me-2"></i>Yes
+                            </label>
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="1" id="q{{ question.question_number }}_sometimes">
+                            <label for="q{{ question.question_number }}_sometimes">
+                                <i class="fas fa-minus me-2"></i>Sometimes
+                            </label>
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="0" id="q{{ question.question_number }}_no">
+                            <label for="q{{ question.question_number }}_no">
+                                <i class="fas fa-times me-2"></i>No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        <!-- Dysgraphia Section -->
+        <div class="section-header" id="dysgraphia-section" style="display: none;">
+            <h3><i class="fas fa-pencil-alt me-2"></i>Writing and Motor Skills (Questions 12-22)</h3>
+            <p class="mb-0">These questions assess potential dysgraphia indicators</p>
+        </div>
+        
+        {% for question in questions %}
+            {% if question.question_number >= 12 and question.question_number <= 22 %}
+                <div class="question-container question-card" data-question="{{ question.question_number }}" data-section="dysgraphia" style="display: none;">
+                    <div class="question-number">Question {{ question.question_number }}</div>
+                    <h5 class="mb-3">{{ question.question_text }}</h5>
+                    
+                    <div class="answer-options">
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="2" id="q{{ question.question_number }}_yes">
+                            <label for="q{{ question.question_number }}_yes">
+                                <i class="fas fa-check me-2"></i>Yes
+                            </label>
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="1" id="q{{ question.question_number }}_sometimes">
+                            <label for="q{{ question.question_number }}_sometimes">
+                                <i class="fas fa-minus me-2"></i>Sometimes
+                            </label>
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="0" id="q{{ question.question_number }}_no">
+                            <label for="q{{ question.question_number }}_no">
+                                <i class="fas fa-times me-2"></i>No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        <!-- Dyscalculia Section -->
+        <div class="section-header" id="dyscalculia-section" style="display: none;">
+            <h3><i class="fas fa-calculator me-2"></i>Mathematics (Questions 23-35)</h3>
+            <p class="mb-0">These questions assess potential dyscalculia indicators</p>
+        </div>
+        
+        {% for question in questions %}
+            {% if question.question_number >= 23 and question.question_number <= 35 %}
+                <div class="question-container question-card" data-question="{{ question.question_number }}" data-section="dyscalculia" style="display: none;">
+                    <div class="question-number">Question {{ question.question_number }}</div>
+                    <h5 class="mb-3">{{ question.question_text }}</h5>
+                    
+                    <div class="answer-options">
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="2" id="q{{ question.question_number }}_yes">
+                            <label for="q{{ question.question_number }}_yes">
+                                <i class="fas fa-check me-2"></i>Yes
+                            </label>
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="1" id="q{{ question.question_number }}_sometimes">
+                            <label for="q{{ question.question_number }}_sometimes">
+                                <i class="fas fa-minus me-2"></i>Sometimes
+                            </label>
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="0" id="q{{ question.question_number }}_no">
+                            <label for="q{{ question.question_number }}_no">
+                                <i class="fas fa-times me-2"></i>No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        <!-- Psychological Impact Section -->
+        <div class="section-header" id="psychological-section" style="display: none;">
+            <h3><i class="fas fa-heart me-2"></i>Emotional Impact (Questions 36-50)</h3>
+            <p class="mb-0">These questions assess psychological and emotional effects</p>
+        </div>
+        
+        {% for question in questions %}
+            {% if question.question_number >= 36 and question.question_number <= 50 %}
+                <div class="question-container question-card" data-question="{{ question.question_number }}" data-section="psychological" style="display: none;">
+                    <div class="question-number">Question {{ question.question_number }}</div>
+                    <h5 class="mb-3">{{ question.question_text }}</h5>
+                    
+                    <div class="answer-options">
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="2" id="q{{ question.question_number }}_yes">
+                            <label for="q{{ question.question_number }}_yes">
+                                <i class="fas fa-check me-2"></i>Yes
+                            </label>
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="1" id="q{{ question.question_number }}_sometimes">
+                            <label for="q{{ question.question_number }}_sometimes">
+                                <i class="fas fa-minus me-2"></i>Sometimes
+                            </label>
+                        </div>
+                        <div class="answer-option">
+                            <input type="radio" name="question_{{ question.question_number }}" 
+                                   value="0" id="q{{ question.question_number }}_no">
+                            <label for="q{{ question.question_number }}_no">
+                                <i class="fas fa-times me-2"></i>No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        <!-- Submit Button -->
+        <div class="text-center mt-5" id="submitSection" style="display: none;">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <h4 class="mb-3">Ready to Submit?</h4>
+                    <p class="mb-4">Please review your answers. Once submitted, you cannot make changes.</p>
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="fas fa-chart-bar me-2"></i>Get Results
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentSection = 'dyslexia';
+    let answeredQuestions = 0;
+    const totalQuestions = {{ total_questions }};
+    
+    const sections = {
+        'dyslexia': { start: 1, end: 11, name: 'Reading & Language' },
+        'dysgraphia': { start: 12, end: 22, name: 'Writing & Motor Skills' },
+        'dyscalculia': { start: 23, end: 35, name: 'Mathematics' },
+        'psychological': { start: 36, end: 50, name: 'Emotional Impact' }
+    };
+    
+    function updateProgress() {
+        const progress = (answeredQuestions / totalQuestions) * 100;
+        document.getElementById('progressBar').style.width = progress + '%';
+        document.getElementById('currentQuestion').textContent = answeredQuestions;
+    }
+    
+    function showNextSection(section) {
+        // Hide current section
+        document.querySelectorAll(`[data-section="${currentSection}"]`).forEach(el => {
+            el.style.display = 'none';
+        });
+        document.getElementById(`${currentSection}-section`).style.display = 'none';
+        
+        // Show next section
+        currentSection = section;
+        document.querySelectorAll(`[data-section="${currentSection}"]`).forEach(el => {
+            el.style.display = 'block';
+        });
+        document.getElementById(`${currentSection}-section`).style.display = 'block';
+        
+        // Update section badge
+        document.getElementById('sectionBadge').textContent = sections[currentSection].name;
+        
+        // Scroll to top of new section
+        document.getElementById(`${currentSection}-section`).scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
+    
+    function checkSectionCompletion(section) {
+        const sectionInfo = sections[section];
+        let sectionAnswered = 0;
+        
+        for (let i = sectionInfo.start; i <= sectionInfo.end; i++) {
+            if (document.querySelector(`input[name="question_${i}"]:checked`)) {
+                sectionAnswered++;
+            }
+        }
+        
+        const sectionTotal = sectionInfo.end - sectionInfo.start + 1;
+        return sectionAnswered === sectionTotal;
+    }
+    
+    // Add event listeners to all radio buttons
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const questionContainer = this.closest('.question-container');
+            questionContainer.classList.add('answered');
+            
+            // Count total answered questions
+            answeredQuestions = document.querySelectorAll('.question-container.answered').length;
+            updateProgress();
+            
+            // Check if current section is complete
+            if (checkSectionCompletion(currentSection)) {
+                setTimeout(() => {
+                    if (currentSection === 'dyslexia') {
+                        showNextSection('dysgraphia');
+                    } else if (currentSection === 'dysgraphia') {
+                        showNextSection('dyscalculia');
+                    } else if (currentSection === 'dyscalculia') {
+                        showNextSection('psychological');
+                    } else if (currentSection === 'psychological') {
+                        document.getElementById('submitSection').style.display = 'block';
+                        document.getElementById('submitSection').scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                    }
+                }, 500);
+            }
+        });
+    });
+    
+    // Form validation before submit
+    document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+        if (answeredQuestions < totalQuestions) {
+            e.preventDefault();
+            alert(`Please answer all questions. You have answered ${answeredQuestions} out of ${totalQuestions} questions.`);
+            return false;
+        }
+    });
+    
+    // Initialize
+    updateProgress();
+});
+</script>
+{% endblock %}

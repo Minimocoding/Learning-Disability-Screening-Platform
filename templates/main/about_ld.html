@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Learning Disabilities - Learning Helper{% endblock %}
+
+{% block content %}
+<div class="info-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold">Understanding Learning Disabilities</h1>
+            <p class="lead text-muted">Learn about different types of learning disabilities and their impact</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="info-card">
+                    <h3 class="info-title">What are Learning Disabilities?</h3>
+                    <p>Learning disabilities are neurological differences that affect how individuals process, store, and retrieve information. They are not a reflection of intelligence but rather indicate that the brain processes information differently.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="info-title">Dyslexia</h3>
+                    <p>Dyslexia primarily affects reading and language processing skills. Children with dyslexia may have difficulty with:</p>
+                    <ul>
+                        <li>Reading fluency and accuracy</li>
+                        <li>Phonemic awareness</li>
+                        <li>Spelling and writing</li>
+                        <li>Word recognition</li>
+                        <li>Reading comprehension</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="info-title">Dysgraphia</h3>
+                    <p>Dysgraphia affects writing abilities and fine motor skills. Signs include:</p>
+                    <ul>
+                        <li>Illegible handwriting</li>
+                        <li>Inconsistent spacing and sizing</li>
+                        <li>Poor fine motor coordination</li>
+                        <li>Difficulty organizing thoughts on paper</li>
+                        <li>Trouble with spelling and grammar</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="info-title">Dyscalculia</h3>
+                    <p>Dyscalculia impacts mathematical learning and reasoning. Common challenges include:</p>
+                    <ul>
+                        <li>Difficulty with number concepts</li>
+                        <li>Problems with basic math operations</li>
+                        <li>Trouble understanding mathematical relationships</li>
+                        <li>Difficulty with time and money concepts</li>
+                        <li>Challenges with mathematical problem-solving</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="info-title">Psychological Impact</h3>
+                    <p>Learning disabilities can have significant emotional and psychological effects:</p>
+                    <ul>
+                        <li>Lower self-esteem and confidence</li>
+                        <li>Anxiety and stress about academic performance</li>
+                        <li>Social withdrawal or behavioral issues</li>
+                        <li>Frustration and emotional outbursts</li>
+                        <li>Avoidance of challenging tasks</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="info-title">Early Intervention</h3>
+                    <p>Early identification and intervention are crucial for success. Our screening tool helps identify potential learning differences so that appropriate support can be provided promptly.</p>
+                </div>
+                
+                <div class="text-center mt-5">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'test_guidelines' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-clipboard-list me-2"></i>Take Assessment
+                        </a>
+                    {% else %}
+                        <a href="{% url 'register_choice' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-user-plus me-2"></i>Get Started
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

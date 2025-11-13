@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Test Guidelines - Learning Helper{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary">Assessment Guidelines</h1>
+                <p class="lead">Please read the following instructions before starting the assessment</p>
+            </div>
+            
+            <div class="card card-custom">
+                <div class="card-header-custom">
+                    <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i>Important Instructions</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-clock text-primary me-2"></i>Time Requirements</h5>
+                            <ul class="mb-4">
+                                <li>The test contains <strong>50 questions</strong></li>
+                                <li>Estimated completion time: <strong>10-15 minutes</strong></li>
+                                <li>Take your time - there's no rush</li>
+                            </ul>
+                            
+                            <h5><i class="fas fa-question-circle text-info me-2"></i>Question Types</h5>
+                            <ul class="mb-4">
+                                <li><strong>Questions 1-11:</strong> Dyslexia indicators</li>
+                                <li><strong>Questions 12-22:</strong> Dysgraphia indicators</li>
+                                <li><strong>Questions 23-35:</strong> Dyscalculia indicators</li>
+                                <li><strong>Questions 36-50:</strong> Psychological impact</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-hand-pointer text-success me-2"></i>How to Answer</h5>
+                            <ul class="mb-4">
+                                <li>Each question has 3 options:</li>
+                                <li><span class="badge bg-success">Yes</span> - This applies most of the time</li>
+                                <li><span class="badge bg-warning">Sometimes</span> - This applies occasionally</li>
+                                <li><span class="badge bg-secondary">No</span> - This rarely or never applies</li>
+                            </ul>
+                            
+                            <h5><i class="fas fa-lightbulb text-warning me-2"></i>Tips for Accuracy</h5>
+                            <ul class="mb-4">
+                                <li>Think about the child's typical behavior</li>
+                                <li>Consider recent observations (last 6 months)</li>
+                                <li>Be honest and objective in your responses</li>
+                                <li>Don't overthink - go with your first instinct</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Important:</strong> This screening tool is for educational purposes only and does not provide a medical diagnosis. 
+                        If results suggest potential learning difficulties, please consult with qualified professionals for comprehensive evaluation.
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-shield-alt me-2"></i>
+                        <strong>Privacy:</strong> All responses are confidential and stored securely. Your data will not be shared with third parties.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <p class="mb-4">Ready to begin the assessment?</p>
+                <a href="{% url 'child_info' %}" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-play-circle me-2"></i>Start Assessment
+                </a>
+                <a href="{% url 'take_test' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Learning Helper - Understanding Learning Differences{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content slide-in-left">
+                <h1 class="hero-title">Understanding Learning Differences</h1>
+                <p class="hero-subtitle">
+                    Every child learns differently! Our friendly screening helps identify learning patterns 
+                    to support every child's unique journey.
+                </p>
+                
+                <div class="d-flex gap-3 flex-wrap">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'test_guidelines' %}" class="btn btn-custom btn-primary-custom">
+                            <i class="fas fa-clipboard-list me-2"></i>Start Screening
+                        </a>
+                    {% else %}
+                        <a href="{% url 'register_choice' %}" class="btn btn-custom btn-primary-custom">
+                            <i class="fas fa-user-plus me-2"></i>Start Screening
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'about_ld' %}" class="btn btn-custom btn-outline-custom">
+                        <i class="fas fa-info-circle me-2"></i>Learn More
+                    </a>
+                </div>
+                
+                <!-- Feature icons -->
+                <div class="mt-4 d-flex gap-4">
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-circle p-3 mb-2 d-inline-block">
+                            <i class="f109" aria-hidden="true"></i>
+                        </div>
+                        <small class="d-block opacity-75">Online Test</small>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-circle p-3 mb-2 d-inline-block">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <small class="d-block opacity-75">Easy Assessment</small>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-circle p-3 mb-2 d-inline-block">
+                            <i class="fas fa-chart-bar text-white fa-lg"></i>
+                        </div>
+                        <small class="d-block opacity-75">Instant Results</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 slide-in-right">
+                <div class="hero-image">
+                    <div class="animal-characters">
+                        <div class="d-flex justify-content-center align-items-end gap-3">
+                            <div class="text-center">
+                                <span class="giraffe">🦒</span>
+                                <div class="mt-2 small text-white opacity-75">Friendly</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="lion">🦁</span>
+                                <div class="mt-2 small text-white opacity-75">Brave</div>
+                            </div>
+                            <div class="text-center">
+                                <span class="rabbit">🐰</span>
+                                <div class="mt-2 small text-white opacity-75">Quick</div>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-3 bg-danger rounded-pill text-white">
+                            <i class="fas fa-book-reader me-2"></i>
+                            <span class="fw-bold">Reading Challenges</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Are You Section -->
+<section class="role-selection">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Who Are You?</h2>
+            <p class="lead text-muted">Choose your role to get personalized learning tools and resources tailored to your specific needs and goals.</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <a href="{% url 'register_parent' %}" class="text-decoration-none">
+                    <div class="role-card fade-in">
+                        <div class="role-icon">
+                            <i class="fas fa-heart text-danger"></i>
+                        </div>
+                        <h4 class="role-title">Parent/Guardian</h4>
+                        <p class="role-description">
+                            Concerned about your child's learning? Get insights and support 
+                            to help your child overcome learning challenges.
+                        </p>
+                        <div class="mt-3">
+                            <small class="text-primary fw-bold">
+                                <i class="fas fa-arrow-right me-1"></i>Start Assessment
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <a href="{% url 'register_teacher' %}" class="text-decoration-none">
+                    <div class="role-card fade-in" style="animation-delay: 0.2s;">
+                        <div class="role-icon">
+                            <i class="fas fa-chalkboard-teacher text-success"></i>
+                        </div>
+                        <h4 class="role-title">Teacher/Educator</h4>
+                        <p class="role-description">
+                            Help identify students who may need additional support 
+                            and get resources for inclusive teaching strategies.
+                        </p>
+                        <div class="mt-3">
+                            <small class="text-primary fw-bold">
+                                <i class="fas fa-arrow-right me-1"></i>Assess Students
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mx-auto">
+                <a href="{% url 'register_psychologist' %}" class="text-decoration-none">
+                    <div class="role-card fade-in" style="animation-delay: 0.4s;">
+                        <div class="role-icon">
+                            <i class="fas fa-brain text-info"></i>
+                        </div>
+                        <h4 class="role-title">Psychologist</h4>
+                        <p class="role-description">
+                            Use our screening tool as a preliminary assessment 
+                            to support your professional evaluation process.
+                        </p>
+                        <div class="mt-3">
+                            <small class="text-primary fw-bold">
+                                <i class="fas fa-arrow-right me-1"></i>Professional Tool
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card card-custom h-100">
+                    <div class="card-body">
+                        <div class="text-primary mb-3">
+                            <i class="fas fa-search fa-3x"></i>
+                        </div>
+                        <h5 class="card-title">Early Detection</h5>
+                        <p class="card-text">Identify learning differences early to provide timely support and interventions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card card-custom h-100">
+                    <div class="card-body">
+                        <div class="text-success mb-3">
+                            <i class="fas fa-clipboard-check fa-3x"></i>
+                        </div>
+                        <h5 class="card-title">Comprehensive Testing</h5>
+                        <p class="card-text">50-question assessment covering dyslexia, dyscalculia, dysgraphia, and psychological impact.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card card-custom h-100">
+                    <div class="card-body">
+                        <div class="text-warning mb-3">
+                            <i class="fas fa-chart-line fa-3x"></i>
+                        </div>
+                        <h5 class="card-title">Detailed Results</h5>
+                        <p class="card-text">Get detailed analysis and recommendations based on assessment results.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card card-custom h-100">
+                    <div class="card-body">
+                        <div class="text-info mb-3">
+                            <i class="fas fa-hands-helping fa-3x"></i>
+                        </div>
+                        <h5 class="card-title">Support Resources</h5>
+                        <p class="card-text">Access helpful resources and strategies to support learning and development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h3 class="mb-4">Ready to Get Started?</h3>
+        <p class="lead mb-4">Take the first step in understanding your child's learning needs</p>
+        {% if user.is_authenticated %}
+            <a href="{% url 'test_guidelines' %}" class="btn btn-lg btn-primary btn-custom">
+                <i class="fas fa-play-circle me-2"></i>Begin Assessment
+            </a>
+        {% else %}
+            <a href="{% url 'register_choice' %}" class="btn btn-lg btn-primary btn-custom">
+                <i class="fas fa-user-plus me-2"></i>Register Now
+            </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
