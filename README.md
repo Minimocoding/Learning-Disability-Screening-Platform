@@ -588,7 +588,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For support, questions, or collaboration opportunities:
 
-- **Email**: support@learninghelper.com
+- **Email**: Contributors :Hemangi Kayarkar 
+                           Gouri Bijwe 
+                           Ayush Atkari 
+                           Arsh Tarare 
 - **Documentation**: [docs.learninghelper.com](https://docs.learninghelper.com)
 - **Issues**: GitHub Issues tab
 - **Discussions**: GitHub Discussions
