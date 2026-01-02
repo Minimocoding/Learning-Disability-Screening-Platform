@@ -591,7 +591,7 @@ For support, questions, or collaboration opportunities:
 - **Email**: Contributors :Hemangi Kayarkar, 
                            Gouri Bijwe,
                            Ayush Atkari, 
-                           Arsh Tarare,
+                           Arsh Tarare.
 - **Documentation**: [docs.learninghelper.com](https://docs.learninghelper.com)
 - **Issues**: GitHub Issues tab
 - **Discussions**: GitHub Discussions
